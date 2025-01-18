@@ -1,6 +1,6 @@
 # Presentation
 
-Presentationis a preset for the Moodle activity database.
+Presentation is a preset for the Moodle activity database.
 
 ## Description
 
