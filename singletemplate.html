@@ -1,0 +1,204 @@
+<div class="body-pres">  
+
+<div id="presentation-container" style="background-color: [[Farbe]]!important";>
+ <div class="controls"><button type="button" id="fullscreen-btn-pres"><i class="fa-solid fa-expand"></i></button>
+        <button type="button" id="prev-btn"><i class="fa-solid fa-arrow-left"></i></button> ##actionsmenu## 
+        <button type="button" id="next-btn"><i class="fa-solid fa-arrow-right"></i></button><button type="button" id="download-pdf"><i class="fa-solid fa-print"></i></button>
+    </div>
+    </div>
+<div style="display: none;">
+[[Textbereich]]
+</div>
+<script>
+const presentationContainer = document.getElementById('presentation-container');
+const dataFieldHtml = document.querySelector('.data-field-html');
+const slides = [];
+let currentSlideIndex = 0;
+let slideNumber = 1;
+let foundValidSlide = false;
+
+// Function to find all H3 elements, including nested ones
+function findAllH3Elements(element) {
+    return Array.from(element.querySelectorAll('h3'));
+}
+
+// Function to get the outermost wrapper class(es)
+function getOuterWrapper(element) {
+    let wrapperClasses = [];
+    let currentElement = element;
+    
+    while (currentElement && currentElement !== dataFieldHtml) {
+        if (currentElement.className) {
+            wrapperClasses.unshift(currentElement.outerHTML.split('>')[0] + '>');
+        }
+        currentElement = currentElement.parentElement;
+    }
+    
+    return wrapperClasses;
+}
+
+// Function to get closing tags for wrapper classes
+function getClosingTags(wrapperClasses) {
+    return wrapperClasses.map(wrapper => {
+        const tag = wrapper.match(/<(\w+)/)[1];
+        return `</${tag}>`;
+    }).reverse();
+}
+
+// Function to process content between H3s
+function processContentBetweenH3s(startH3, nextH3) {
+    const content = [];
+    let currentElement = startH3;
+    
+    // Get wrapper classes from the first H3's parent structure
+    const wrapperClasses = getOuterWrapper(startH3);
+    const closingTags = getClosingTags(wrapperClasses);
+    
+    // Add opening wrapper tags
+    content.push(...wrapperClasses);
+    
+    // Add the H3 with slide number
+    content.push(`<h3>${slideNumber}. ${startH3.innerHTML}</h3>`);
+    
+    // Get the next element after H3
+    currentElement = startH3.nextElementSibling;
+    
+    // Continue until we hit the next H3 or run out of siblings
+    while (currentElement && (!nextH3 || !currentElement.contains(nextH3) && currentElement !== nextH3)) {
+        if (!currentElement.querySelector('h3')) {
+            content.push(currentElement.outerHTML);
+        }
+        currentElement = currentElement.nextElementSibling;
+    }
+    
+    // Add closing wrapper tags
+    content.push(...closingTags);
+    
+    return content;
+}
+
+// Get all H3 elements
+const allH3Elements = findAllH3Elements(dataFieldHtml);
+
+// Process each H3 element
+allH3Elements.forEach((h3, index) => {
+    const title = h3.textContent.trim();
+    if (title === "") {
+        console.log('Empty H3 found, skipping this slide.');
+        return;
+    }
+
+    const nextH3 = allH3Elements[index + 1];
+    const slideContent = processContentBetweenH3s(h3, nextH3);
+    
+    // Only add the slide if we have content
+    if (slideContent.length > 0) {
+        slides.push(slideContent);
+        slideNumber++;
+        foundValidSlide = true;
+    }
+});
+
+// Check if any valid slides were found
+if (!foundValidSlide) {
+    const errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-message');
+    errorMessage.innerHTML = '<h3>Es wurden keine gültigen Folien mit Titeln (H3) gefunden!</h3>';
+    presentationContainer.innerHTML = '';
+    presentationContainer.appendChild(errorMessage);
+} else {
+    // Render slides
+    slides.forEach((content, index) => {
+        const slideDiv = document.createElement('div');
+        slideDiv.classList.add('slide');
+        slideDiv.innerHTML = content.join('');
+        presentationContainer.appendChild(slideDiv);
+    });
+}
+
+// Show slides functionality
+const allSlides = document.querySelectorAll('.slide');
+
+function showSlide(index) {
+    allSlides.forEach((slide, i) => {
+        slide.style.display = i === index ? 'block' : 'none';
+    });
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+    currentSlideIndex = (currentSlideIndex > 0) ? currentSlideIndex - 1 : slides.length - 1;
+    showSlide(currentSlideIndex);
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+    currentSlideIndex = (currentSlideIndex < slides.length - 1) ? currentSlideIndex + 1 : 0;
+    showSlide(currentSlideIndex);
+});
+
+// Show the first slide initially
+showSlide(currentSlideIndex);
+
+// Fullscreen functionality
+document.getElementById('fullscreen-btn-pres').addEventListener('click', () => {
+    presentationContainer.classList.toggle('fullscreen');
+});
+
+// PDF download functionality
+document.getElementById('download-pdf').addEventListener('click', function() {
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<html><head><title>Präsentation</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: Arial, sans-serif; color: #333; margin: 20px; }');
+    printWindow.document.write('.slide { padding: 20px; margin-bottom: 20px; page-break-before: always; }');
+    printWindow.document.write('h3 { font-size: 24px; margin-bottom: 10px; page-break-before: always;}');
+    printWindow.document.write('img { max-width: 50%;}');
+    printWindow.document.write('p { font-size: 18px; }');
+    printWindow.document.write('</style></head><body>');
+
+    slides.forEach((slide) => {
+        printWindow.document.write('<div class="slide">');
+        printWindow.document.write(slide.join(''));
+        printWindow.document.write('</div>');
+    });
+
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+});
+</script> 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Hole den tatsächlichen Farbwert aus dem Platzhalter [[Farbe]]
+    let backgroundColor = '[[Farbe]]';  // Beispiel-Platzhalter, der durch den tatsächlichen Wert ersetzt werden muss
+    console.log('Hintergrundfarbe:', backgroundColor);  // Ausgabe der Hintergrundfarbe in der Konsole
+
+    function getContrastColor(hexColor) {
+        // Entferne das '#' Zeichen, falls es vorhanden ist
+        hexColor = hexColor.replace('#', '');
+
+        // Hex-Werte in RGB umwandeln
+        let r = parseInt(hexColor.substring(0, 2), 16);
+        let g = parseInt(hexColor.substring(2, 4), 16);
+        let b = parseInt(hexColor.substring(4, 6), 16);
+
+        // Berechne die Luminanz
+        let luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        // Wenn die Luminanz kleiner als 128 ist, wähle weiße Schriftfarbe, ansonsten schwarze Schriftfarbe
+        return luminance < 128 ? 'white' : 'black';
+    }
+
+    // Berechne die Textfarbe basierend auf der Hintergrundfarbe
+    let textColor = getContrastColor(backgroundColor);  
+    console.log('Textfarbe:', textColor);  // Ausgabe der berechneten Textfarbe in der Konsole
+
+    // Dynamisch den Stil auf .slide anwenden mit !important
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.style.setProperty('color', textColor, 'important');
+    });
+});
+
+</script>
+</div>
+##edit##

@@ -1,0 +1,261 @@
+/* Hauptcontainer-Stile */
+#defaulttemplate-addentry {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background: linear-gradient(135deg, #f9f9f9, #d0d0d0);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Abstände und Paddings */
+#defaulttemplate-addentry .mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+#defaulttemplate-addentry .pt-3 {
+    padding-top: 1rem;
+}
+
+#defaulttemplate-addentry .mb-3.pt-3 {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Text- und Label-Stile */
+#defaulttemplate-addentry .font-weight-bold {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+#defaulttemplate-addentry label {
+    font-size: 16px;
+    color: #444;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Eingabefeld: Farbwähler */
+#defaulttemplate-addentry input[type="color"] {
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#defaulttemplate-addentry input[type="color"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff4081;
+}
+
+/* Listenstile */
+#defaulttemplate-addentry ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #555;
+}
+
+#defaulttemplate-addentry ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Abstand für Zeilenumbrüche */
+#defaulttemplate-addentry br {
+    margin-top: 10px;
+}
+
+/* Kachel-Container */
+.kachel-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Abstand zwischen den Kacheln */
+}
+
+/* Kachel-Stile */
+.kachel {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Kachel-Header */
+.kachel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Benutzerbild in Kachel */
+.userpicture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ddd; /* Platzhalter für das Benutzerbild */
+    /* Hier wird das Benutzerbild aus Moodle eingefügt */
+}
+
+/* Benutzername in Kachel */
+.username {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Kachel-Titel */
+.kachel-title {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.body-pres {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#presentation-container {
+   width: 90%;
+    max-width: 900px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.slide {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.1);
+    overflow-y: auto;
+    animation: fade 0.5s ease;
+min-height: 50vh;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.slide h3 {
+    margin: 0;
+    padding: 15px;
+    background: #333;
+    color: white;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+.slide p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.slide p img {
+    display: block; /* Bild als Blockelement */
+    margin: 0 auto; /* Zentriert das Bild innerhalb des p */
+margin-top: 5%;
+}
+
+.slide img {
+    max-width: 50%!important;
+max-height: 75vh!important; 
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+width: 100%;
+    min-width: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background: #eee;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.controls button:hover {
+    transform: scale(1.1);
+}
+/* Anpassungen für den Vollbildmodus */
+#presentation-container.fullscreen {
+    position: fixed;   /* Fixiert den Präsentationscontainer im Browserfenster */
+    top: 0;
+    left: 0;
+    width: 100vw;       /* Setzt die Breite auf 100% der Viewport-Breite */
+    height: 100vh;      /* Setzt die Höhe auf 100% der Viewport-Höhe */
+    z-index: 9999;      /* Stellt sicher, dass die Präsentation über anderen Elementen liegt */
+    box-shadow: none;   /* Entfernt Schatten im Vollbildmodus */
+    border-radius: 0;   /* Entfernt abgerundete Ecken im Vollbildmodus */
+max-width: 100%;
+}
+
+/* Anpassung der Schriftgröße im Vollbildmodus */
+#presentation-container.fullscreen .slide p {
+    font-size: 2vw; /* Textgrößen skalieren im Vollbildmodus */
+}
+
+#presentation-container.fullscreen .slide img {
+   min-width: 25% !important;
+  max-width: 50% !important;
+   max-height: 75vh !important;
+}
+
+
+#presentation-container.fullscreen .slide h3 {
+    font-size: 3vw; /* Titelgröße im Vollbildmodus */
+}
+  @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #presentation-container {
+            width: 100%;
+        }
+
+        .slide {
+            page-break-before: always;  /* Seitenumbruch für jede Folie */
+            break-before: page;  /* Für Browser wie Firefox */
+        }
+    }

@@ -1,0 +1,38 @@
+<style>#[[Farbe#id]] {
+pointer-events:none;
+opacity: 0.5;
+}
+</style>
+
+
+
+<div id="defaulttemplate-addentry">
+        <div class="mb-3 pt-3">
+            <div class="font-weight-bold">Titel der Präsentation</div>
+            [[Titel]]
+        </div>
+          <div class="mb-3 pt-3"><div class="font-weight-bold">
+           <label for="Farbe">Akzentfarbe wählen: <input type="color" id="color" name="color" ></label></div><br>
+Aktueller Farbcode: [[Farbe]]<br>
+        <div class="mb-3 pt-3">
+            <div class="font-weight-bold">Textbereich</div>
+<ul>
+<li>Schreibe den Text und füge Bilder ein.</li>
+<li>Formatiere die Folienüberschriften als <b>H3-Überschrift.</b></li>
+<li>Nummeriere die Überschriften nicht.</li>
+<li>Formatiere sonst nichts weiter, der Rest wird für dich erledigt.</li>
+</ul>
+            [[Textbereich]]
+        </div>
+  ##otherfields##
+</div>
+
+<script>// Farbe aus ColorPicker auslesen
+var theInput = document.getElementById("color");
+var theColor = theInput.value;
+theInput.addEventListener("input", function() {
+
+// Farbcode (Hex) schreiben
+document.getElementById("[[Farbe#id]]").value = theInput.value;
+}, false);
+</script>
