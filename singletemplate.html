@@ -1,3 +1,4 @@
+
 <div class="body-pres">  
 
 <div id="presentation-container" style="background-color: [[Farbe]]!important";>
@@ -149,7 +150,7 @@ document.getElementById('download-pdf').addEventListener('click', function() {
     printWindow.document.write('<html><head><title>Präsentation</title>');
     printWindow.document.write('<style>');
     printWindow.document.write('body { font-family: Arial, sans-serif; color: #333; margin: 20px; }');
-    printWindow.document.write('.slide { padding: 20px; margin-bottom: 20px; page-break-before: always; }');
+    printWindow.document.write('#presentation-container .slide { padding: 20px; margin-bottom: 20px; page-break-before: always; }');
     printWindow.document.write('h3 { font-size: 24px; margin-bottom: 10px; page-break-before: always;}');
     printWindow.document.write('img { max-width: 50%;}');
     printWindow.document.write('p { font-size: 18px; }');
@@ -194,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Textfarbe:', textColor);  // Ausgabe der berechneten Textfarbe in der Konsole
 
     // Dynamisch den Stil auf .slide anwenden mit !important
-    document.querySelectorAll('.slide').forEach(slide => {
+    document.querySelectorAll('#presentation-container .slide').forEach(slide => {
         slide.style.setProperty('color', textColor, 'important');
     });
 });
