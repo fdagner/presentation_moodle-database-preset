@@ -230,7 +230,7 @@ max-width: 100%;
 }
 
 /* Anpassung der Schriftgröße im Vollbildmodus */
-#presentation-container.fullscreen .slide p, #presentation-container.fullscreen .slide ul {
+#presentation-container.fullscreen .slide p, #presentation-container.fullscreen .slide ul, #presentation-container.fullscreen .slide ol {
     font-size: 2vw; /* Textgrößen skalieren im Vollbildmodus */
 }
 
