@@ -97,7 +97,7 @@
 }
 
 /* Benutzerbild in Kachel */
-.userpicture {
+.kachel-container .userpicture {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -139,7 +139,7 @@
     overflow: hidden;
 }
 
-.slide {
+#presentation-container .slide {
     flex: 1;
     display: none;
     flex-direction: column;
@@ -162,7 +162,7 @@ min-height: 50vh;
     }
 }
 
-.slide h3 {
+#presentation-container .slide h3 {
     margin: 0;
     padding: 15px;
     background: #333;
@@ -173,25 +173,22 @@ min-height: 50vh;
     border-radius: 10px 10px 0 0;
 }
 
-.slide p {
+#presentation-container .slide p {
     font-size: 18px;
     line-height: 1.6;
     margin: 15px 0;
 }
 
-.slide p img {
+#presentation-container .slide img {
     display: block; /* Bild als Blockelement */
     margin: 0 auto; /* Zentriert das Bild innerhalb des p */
 margin-top: 5%;
-}
-
-.slide img {
     max-width: 50%!important;
 max-height: 75vh!important; 
    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.controls {
+#presentation-container .controls {
 width: 100%;
     min-width: 50%;
     padding: 10px;
@@ -201,7 +198,7 @@ width: 100%;
     background: rgba(0, 0, 0, 0.3);
 }
 
-.controls button {
+#presentation-container .controls button {
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -230,7 +227,7 @@ max-width: 100%;
 }
 
 /* Anpassung der Schriftgröße im Vollbildmodus */
-#presentation-container.fullscreen .slide p {
+#presentation-container.fullscreen .slide p, #presentation-container.fullscreen .slide ul, #presentation-container.fullscreen .slide ol {
     font-size: 2vw; /* Textgrößen skalieren im Vollbildmodus */
 }
 
@@ -240,7 +237,6 @@ max-width: 100%;
    max-height: 75vh !important;
 }
 
-
 #presentation-container.fullscreen .slide h3 {
     font-size: 3vw; /* Titelgröße im Vollbildmodus */
 }
@@ -249,13 +245,15 @@ max-width: 100%;
             margin: 0;
             padding: 0;
         }
-
+img {
+max-width: 50%!important;
+}
         #presentation-container {
             width: 100%;
         }
 
-        .slide {
-            page-break-before: always;  /* Seitenumbruch für jede Folie */
-            break-before: page;  /* Für Browser wie Firefox */
-        }
-    }
+#presentation-container .slide:not(:first-child) {
+    page-break-before: always; /* Seitenumbruch für jede Folie außer der ersten */
+    break-before: page; /* Für Browser wie Firefox */
+}
+  }
