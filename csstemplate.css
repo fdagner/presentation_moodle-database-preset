@@ -256,4 +256,5 @@ max-width: 50%!important;
     page-break-before: always; /* Seitenumbruch für jede Folie außer der ersten */
     break-before: page; /* Für Browser wie Firefox */
 }
-  }
+
+}
